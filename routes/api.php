@@ -43,3 +43,12 @@ Route::post('/login', function (Request $request) {
 
     return response($response, 201);
 });
+
+Route::get('/test', function(){
+    $response = [
+        'user' => 'TEST',
+        'token' => 'PASS'
+    ];
+
+    return response($response, 201);
+});
