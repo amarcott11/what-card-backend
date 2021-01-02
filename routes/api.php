@@ -52,3 +52,22 @@ Route::get('/test', function(){
 
     return response($response, 201);
 });
+
+Route::get('/user', function(Request $request) {
+    $data = $request->validate([
+        'email' => 'required|email',
+    ]);
+    $users = User::where('email', '=', $request->input('email'))->first();
+    if ($users === null) {
+        return response([
+            'message' => ['User does not exist.']
+        ], 404);
+    } else {
+        $response = [
+            'user' => $users
+        ];
+
+        return response($response, 201);
+    }
+
+});
