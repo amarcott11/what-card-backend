@@ -13,4 +13,11 @@ class BankController extends Controller
 
         return response($bank, 200);
     }
+
+    public function cards(Request $request)
+    {
+        $cards = Bank::all();
+
+        return response($cards, 200);
+    }
 }
