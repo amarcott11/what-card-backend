@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BankController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +73,7 @@ Route::get('/user', function(Request $request) {
     }
 
 });
+
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/bank', [BankController::class, 'all']);
