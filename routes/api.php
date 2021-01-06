@@ -119,7 +119,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/bank', [BankController::class, 'all']);
 
-Route::get('/cards', function (Request $request) {
+Route::get('/cards/filter', function (Request $request) {
     if ($request->q1 == null ||
         $request->q2 == null ||
         $request->q3 == null ||
@@ -141,4 +141,4 @@ Route::get('/cards', function (Request $request) {
 
 });
 
-//Route::apiResource('/cards', CardController::class);
+Route::apiResource('/cards', CardController::class);
