@@ -22,6 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cashback',
+        'business',
+        'premium',
+        'chase',
+        'annual_fee',
+        'completed_questionaire'
     ];
 
     /**

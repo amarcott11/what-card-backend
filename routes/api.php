@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BankController;
@@ -47,6 +48,41 @@ Route::post('/login', function (Request $request) {
     return response($response, 201);
 });
 
+Route::middleware('auth:sanctum')->post('/userattrs', function (Request $request) {
+    $data = $request->validate([
+        'q1' => 'required|boolean',
+        'q2' => 'required|boolean',
+        'q3' => 'required|boolean',
+        'q4' => 'required|boolean',
+        'q5' => 'required|boolean',
+    ]);
+    $userDetails = auth()->user();  // To get the logged-in user details
+    $user = User::find($userDetails ->id);  // Find the user using model and hold its reference
+
+    if (!$user) {
+        return response([
+            'message' => ['There is no logged-in user.']
+        ], 404);
+    }
+
+    $user->cashback = $request->q1;
+    $user->business = $request->q2;
+    $user->premium = $request->q3;
+    $user->chase = $request->q4;
+    $user->annual_fee = $request->q5;
+    $user->completed_questionaire = 1;
+    $user->save();
+
+    $token = $request->bearerToken();
+
+    $response = [
+        'user' => $user,
+        'token' => $token
+    ];
+
+    return response($response, 201);
+});
+
 Route::get('/test', function(){
     $response = [
         'user' => 'TEST',
@@ -74,6 +110,9 @@ Route::get('/user', function(Request $request) {
     }
 
 });
+
+
+
 
 Route::post('/register', [RegisterController::class, 'register']);
 
