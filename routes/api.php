@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Card;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,4 +119,26 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/bank', [BankController::class, 'all']);
 
-Route::apiResource('/cards', CardController::class);
+Route::get('/cards', function (Request $request) {
+    if ($request->q1 == null ||
+        $request->q2 == null ||
+        $request->q3 == null ||
+        $request->q4 == null ||
+        $request->q5 == null) {
+            $cards = Card::all();
+            $response = [
+                'cards' => $cards
+            ];
+            return response($response, 201);
+        } else {
+            $response = [
+                'user' => 'TEST',
+                'token' => 'PASS'
+            ];
+
+            return response($response, 201);
+        }
+
+});
+
+//Route::apiResource('/cards', CardController::class);
